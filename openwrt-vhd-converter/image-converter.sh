@@ -100,9 +100,10 @@ check_command() {
 
 install_if_needed() {
   local package=$1
+  local command=${2:-$package}  # Command to check (defaults to package name)
   local name=${2:-$package}
   
-  if check_command "$package"; then
+  if check_command "$command"; then
     log_success "$name found"
     return 0
   fi
