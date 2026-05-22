@@ -1,0 +1,13 @@
+# Downloaded files
+downloads/
+
+# Reports
+download-report.json
+
+# Temporary files
+*.tmp
+*.tmp.*
+.tmp
+
+# Logs
+*.log
