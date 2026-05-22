@@ -1,0 +1,16 @@
+# Ignore working and output directories
+work/
+output/
+
+# Ignore generated report
+conversion-report.json
+
+# Ignore temporary files
+*.tmp
+*.log
+*.swp
+*~
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
