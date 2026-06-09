@@ -125,6 +125,28 @@ check_prerequisites() {
   done
   log_success "All required commands available"
   
+  # Check for Node.js (required by openwrt-release-info-fetcher)
+  if ! command -v "node" &> /dev/null; then
+    log_error "Node.js not found — required by openwrt-release-info-fetcher"
+    exit 1
+  fi
+  log_success "Node.js: $(node --version)"
+  
+  # Check for npm dependencies in openwrt-release-info-fetcher
+  local fetcher_dir="$SCRIPT_DIR/openwrt-release-info-fetcher"
+  if [[ ! -d "$fetcher_dir/node_modules" ]]; then
+    log_warn "node_modules not found in openwrt-release-info-fetcher"
+    log_step "Running npm install..."
+    if (cd "$fetcher_dir" && npm install); then
+      log_success "npm install completed successfully"
+    else
+      log_error "npm install failed in openwrt-release-info-fetcher"
+      exit 1
+    fi
+  else
+    log_success "openwrt-release-info-fetcher dependencies installed"
+  fi
+  
   # Check directories
   if [[ ! -d "$SCRIPT_DIR/openwrt-release-info-fetcher" ]]; then
     log_error "openwrt-release-info-fetcher directory not found"
